@@ -47,7 +47,7 @@ export const Todolists = () => {
   }
 
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
       <DndContext onDragEnd={handleReorder} collisionDetection={closestCorners}>
         <SortableContext items={todolists} strategy={verticalListSortingStrategy}>
           {todolists?.map((todolist) => (
