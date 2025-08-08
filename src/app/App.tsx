@@ -11,6 +11,7 @@ import CssBaseline from "@mui/material/CssBaseline"
 import { ThemeProvider } from "@mui/material/styles"
 import { useEffect, useState } from "react"
 import styles from "./App.module.css"
+import { getAuthToken } from "@/features/todolists/lib/utils/getAuthToken.ts"
 
 export const App = () => {
   const [isInitialized, setIsInitialized] = useState(false)
@@ -22,15 +23,18 @@ export const App = () => {
   const dispatch = useAppDispatch()
 
   const theme = getTheme(themeMode)
-  console.log(data?.resultCode)
 
   useEffect(() => {
+    const token = getAuthToken()
+    if (token) {
+      dispatch(setIsLoggedInAC({ isLoggedIn: true }))
+    }
+
     if (isLoading) return
     setIsInitialized(true)
     if (data?.resultCode === ResultCode.Success) {
       dispatch(setIsLoggedInAC({ isLoggedIn: true }))
     }
-
   }, [isLoading])
 
   if (!isInitialized) {

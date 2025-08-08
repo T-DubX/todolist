@@ -58,7 +58,11 @@ export const Login = () => {
     login(data).then((res) => {
       if (res.data?.resultCode === ResultCode.Success) {
         dispatch(setIsLoggedInAC({ isLoggedIn: true }))
-        localStorage.setItem(AUTH_TOKEN, res.data.data.token)
+        try {
+          localStorage.setItem(AUTH_TOKEN, JSON.stringify(res.data.data.token))
+        } catch (e) {
+          console.error("Failed to save token to localStorage", e)
+        }
         reset()
       }
     })
