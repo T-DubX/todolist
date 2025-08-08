@@ -1,0 +1,13 @@
+.dragIndicatorWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background-color: #ccc;
+    cursor: grab;
+}
+
+.dragIndicatorWrapper:hover {
+    background-color: #aaa;
+}

@@ -8,6 +8,8 @@ import Grid from "@mui/material/Grid"
 import Paper from "@mui/material/Paper"
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
+import DragIndicatorIcon from "@mui/icons-material/DragIndicator"
+import styles from "./TodolistItem.module.css"
 
 type Props = {
   todolist: DomainTodolist
@@ -27,8 +29,19 @@ export const TodolistItem = ({ todolist }: Props) => {
   }
 
   return (
-    <Grid ref={setNodeRef} {...attributes} {...listeners} style={style}>
+    <Grid ref={setNodeRef} style={{ ...style, position: "relative" }}>
       <Paper sx={{ p: "0 20px 20px 20px" }}>
+        <div {...attributes} {...listeners} className={styles.dragIndicatorWrapper}>
+          <DragIndicatorIcon
+            sx={{
+              fontSize: 16,
+              position: "absolute",
+              left: "50%",
+              transform: "translateX(-50%)",
+              color: "#666",
+            }}
+          />
+        </div>
         <TodolistTitle todolist={todolist} />
         <CreateItemForm onCreateItem={createTask} disabled={todolist.entityStatus === "loading"} />
         <Tasks todolist={todolist} />
